@@ -105,6 +105,8 @@ function initParticles() {
   particleMaterial.extensions.drawBuffers = true
 
   particle = new THREE.Points(particleGeometry, particleMaterial)
+  particle.castShadow = true
+  particle.receiveShadow = true
   scene.add(particle)
 
 }

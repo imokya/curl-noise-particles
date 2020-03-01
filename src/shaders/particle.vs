@@ -15,4 +15,6 @@ void main() {
 
   gl_Position = projectionMatrix * mvPosition;
 
+  vec4 cameraMatrix = vec4(1.0, 1.0, 1.0, 1.0);
+
 }
