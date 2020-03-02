@@ -111,7 +111,6 @@ function initParticles() {
     blending: THREE.NoBlending
   })
 
-
   particle = new THREE.Points(particleGeometry, particleMaterial)
   particle.customDistanceMaterial = new THREE.ShaderMaterial( {
     uniforms: {
@@ -122,12 +121,10 @@ function initParticles() {
     fragmentShader: particleDistanceFragShader,
     depthTest: true,
     depthWrite: true,
-    alphaTest: true,
-    
-    side: THREE.DoubleSide,
+    side: THREE.BackSide,
     blending: THREE.NoBlending
   })
-  
+
 
   particle.castShadow = true
   particle.receiveShadow = true
