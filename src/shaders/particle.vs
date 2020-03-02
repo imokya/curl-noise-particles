@@ -1,8 +1,11 @@
 uniform sampler2D texturePosition;
 uniform sampler2D textureVelocity;
+varying float vLife;
 
 #include <common>
+#include <fog_pars_vertex>
 #include <shadowmap_pars_vertex>
+
 
 void main() {
   vec4 pos = texture2D(texturePosition, uv);
@@ -11,10 +14,12 @@ void main() {
   vec4 worldPosition = modelMatrix * vec4(pos.xyz, 1.0);
   vec4 mvPosition = viewMatrix * worldPosition;
 
-  gl_PointSize = 1300.0 / length(mvPosition.xyz);
+  vLife = pos.w;
+
+  gl_PointSize = 1300.0 / length(mvPosition.xyz) * smoothstep(0.0, 0.2, pos.w);
 
   gl_Position = projectionMatrix * mvPosition;
 
-  vec4 cameraMatrix = vec4(1.0, 1.0, 1.0, 1.0);
-
+  #include <fog_vertex>
+  #include <shadowmap_vertex>
 }

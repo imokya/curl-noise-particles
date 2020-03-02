@@ -6,6 +6,9 @@ import computeVelShader from './shaders/computeVel.glsl'
 import particleVertShader from './shaders/particle.vs'
 import particleFragShader from './shaders/particle.fs'
 
+import particleDistanceVertShader from './shaders/particleDistance.vs'
+import particleDistanceFragShader from './shaders/particleDistance.fs'
+
 
 import '@/css/style.css'
 
@@ -48,27 +51,30 @@ function init() {
 }
 
 function initLights() {
-  const group = new THREE.Group()
+  const group = new THREE.Object3D()
+  group.position.set(0, 500, 0)
 
   const ambient = new THREE.AmbientLight(0x333333)
-  group.add(ambient)
+  //group.add(ambient)
 
   const pointLight = new THREE.PointLight(0xffffff, 1, 700)
+
   pointLight.castShadow = true
-  pointLight.shadow.cameraNear = 10
-  pointLight.shadow.cameraFar = 700
-  pointLight.shadow.bias = 0.1
+  pointLight.shadow.camera.near = 10
+  pointLight.shadow.camera.far = 700
+  pointLight.shadow.bias = 0.2
   pointLight.shadow.mapSize.width = 4096
   pointLight.shadow.mapSize.height = 2048
   group.add(pointLight)
 
+
   const directionalLight = new THREE.DirectionalLight(0xba8b8b, 0.5)
   directionalLight.position.set(1, 1, 1)
-  group.add(directionalLight)
+  //group.add(directionalLight)
 
   const directionalLight2 = new THREE.DirectionalLight(0x8bbab4, 0.3)
   directionalLight2.position.set(1, 1, -1)
-  group.add(directionalLight2)
+  //group.add(directionalLight2)
 
   scene.add(group)
 }
@@ -100,11 +106,29 @@ function initParticles() {
     uniforms: particleUniforms,
     vertexShader: particleVertShader,
     fragmentShader: particleFragShader,
+    fog: true,
+    lights: true,
     blending: THREE.NoBlending
   })
-  particleMaterial.extensions.drawBuffers = true
+
 
   particle = new THREE.Points(particleGeometry, particleMaterial)
+  particle.customDistanceMaterial = new THREE.ShaderMaterial( {
+    uniforms: {
+      lightPos: { type: 'v3', value: new THREE.Vector3(0, 0, 0) },
+      texturePosition: { type: 't', value: posTexture.clone() }
+    },
+    vertexShader: particleDistanceVertShader,
+    fragmentShader: particleDistanceFragShader,
+    depthTest: true,
+    depthWrite: true,
+    alphaTest: true,
+    
+    side: THREE.DoubleSide,
+    blending: THREE.NoBlending
+  })
+  
+
   particle.castShadow = true
   particle.receiveShadow = true
   scene.add(particle)
@@ -147,7 +171,7 @@ function initPosition(texture) {
     const theta = Math.random() * Math.PI * 2
     data[i + 0] = radius * Math.cos(theta) * Math.cos(phi)
     data[i + 1] = radius * Math.sin(phi)
-    data[i + 2] = radius * Math.sin(theta) * Math.cos(phi)
+    data[i + 2] = radius * Math.sin(theta) * Math.cos(phi) 
     data[i + 3] = Math.random()
   }
 }
@@ -193,8 +217,10 @@ function setSize() {
 
 function initScene() {
   renderer = new THREE.WebGLRenderer({
+    alpha: false,
     antialias: true
   })
+  renderer.setClearColor(0x343434)
   renderer.shadowMap.type = THREE.PCFSoftShadowMap
   renderer.shadowMap.enabled = true
   scene = new THREE.Scene()
@@ -220,6 +246,7 @@ function update() {
   computeRenderer.compute()
   particleUniforms.texturePosition.value = computeRenderer.getCurrentRenderTarget(comPosition).texture
   particleUniforms.textureVelocity.value = computeRenderer.getCurrentRenderTarget(comVelocity).texture
+  //particle.customDistanceMaterial.uniforms.texturePosition.value = computeRenderer.getCurrentRenderTarget(comPosition).texture
 }
 
 function render() {
