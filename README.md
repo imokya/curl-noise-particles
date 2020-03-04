@@ -1,6 +1,6 @@
 # curl noise particles
 
-Curl Noise粒子的three.js ComputationRenderer实现
+Curl Noise粒子的three.js GPU Computation Renderer实现.
 
 ## 参考
 
