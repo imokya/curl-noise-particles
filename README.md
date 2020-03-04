@@ -2,6 +2,8 @@
 
 Curl Noise粒子的three.js GPU Computation Renderer实现.
 
+[![preview](https://github.com/imokya/curl-noise-particles/blob/master/src/img/noise.png)](https://github/imokya/curl-noise-particles)
+
 ## 参考
 
 [Edankwan/The-Spirit](https://github.com/edankwan/The-Spirit) 
