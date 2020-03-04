@@ -28,8 +28,8 @@ let mouse3d = ray.origin
 let mouse = new THREE.Vector2()
 
 
-const TEXTURE_WIDTH = 256
-const TEXTURE_HEIGHT = 256
+const TEXTURE_WIDTH = 512
+const TEXTURE_HEIGHT = 512
 const AMOUNT = TEXTURE_WIDTH * TEXTURE_HEIGHT
 const touch = !!('ontouchstart' in window)
 

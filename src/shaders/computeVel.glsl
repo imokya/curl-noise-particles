@@ -13,7 +13,7 @@ void main() {
   vec3 vel = textureVel.xyz;
   vec3 pos = texturePos.xyz;
   vel += curl(pos * 0.02, 0.0, 0.05);
-  vel *= 0.5;
+  vel *= 0.6;
 
   gl_FragColor = vec4(vel, 1.0);
 }

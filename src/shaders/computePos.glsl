@@ -17,8 +17,8 @@ void main() {
 
   if (life < 0.0) {
     texturePos = texture2D(textureDefaultPosition, uv);
-    pos = texturePos.xyz * (sin(time * 30.0 + life) + 0.3) + followPos;
-    life = 0.3 + fract(texturePos.w * 21.4131 + 0.1);
+    pos = texturePos.xyz * (sin(time * 30.0 + life) + 0.2) + followPos;
+    life = 0.5 + fract(texturePos.w * 21.4131 + 0.1);
   } else {
     vec3 delta = followPos - pos;
     pos += delta * 0.001;
