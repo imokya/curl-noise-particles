@@ -16,7 +16,7 @@ void main() {
 
   vLife = pos.w;
 
-  gl_PointSize = 1300.0 / length(mvPosition.xyz) * smoothstep(0.0, 0.2, pos.w);
+  gl_PointSize = 1400.0 / length(mvPosition.xyz) * smoothstep(0.2, 0.8, pos.w);
 
   gl_Position = projectionMatrix * mvPosition;
 

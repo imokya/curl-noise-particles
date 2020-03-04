@@ -1,4 +1,5 @@
 uniform vec3 mouse3d;
+uniform float time;
 uniform sampler2D textureDefaultPosition;
 
 void main() {
@@ -11,14 +12,13 @@ void main() {
   vec3 vel = textureVel.xyz;
 
 
-  float life = texturePos.w - 0.04;
+  float life = texturePos.w - 0.02;
   vec3 followPos = mouse3d;
-  
 
   if (life < 0.0) {
     texturePos = texture2D(textureDefaultPosition, uv);
-    pos = texturePos.xyz * 0.5 + followPos;
-    life = 0.5 + fract(texturePos.w * 21.4131 + 0.1);
+    pos = texturePos.xyz * (sin(time * 30.0 + life) + 0.3) + followPos;
+    life = 0.3 + fract(texturePos.w * 21.4131 + 0.1);
   } else {
     vec3 delta = followPos - pos;
     pos += delta * 0.001;
