@@ -1,11 +1,11 @@
-# curl noise
+# curl noise particles
 
-Curl Noise Particle with three.js ComputationRenderer
+Curl Noise粒子的three.js ComputationRenderer实现
 
-## Reference
+## 参考
 
-edankwan/The-Spirit
-http://petewerner.blogspot.com/2015/02/intro-to-curl-noise.html
+[edankwan/The-Spirit](https://github.com/edankwan/The-Spirit) 
+[petewerner/Intro-to-curl-noise] http://petewerner.blogspot.com/2015/02/intro-to-curl-noise.html
 
-## Demo
+## 运行
 npm i && npm start
