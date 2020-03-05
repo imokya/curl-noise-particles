@@ -42,7 +42,7 @@ let winSize = {
 const clock = new THREE.Clock()
 clock.start()
 
-const lightPos = new THREE.Vector3(0, 500, 0)
+const lightPos = new THREE.Vector3(0, 700, 0)
 
 
 function init() {
@@ -82,7 +82,7 @@ function initLights() {
   const ambient = new THREE.AmbientLight(0x333333)
   group.add(ambient)
 
-  const pointLight = new THREE.PointLight(0xffffff, 1, 700)
+  const pointLight = new THREE.PointLight(0xffffff, 1, 1000)
 
   pointLight.castShadow = true
   pointLight.shadow.camera.near = 10
